@@ -130,6 +130,9 @@ checkboxs.forEach((checkbox) => {
 });
 
 spanishTickets.addEventListener('input', function () {
+  if (!spanishTickets.value) {
+    spanishTickets.value = 0;
+  }
   if (spanishTickets.value > numberOfTickets) {
     spanishTickets.value = numberOfTickets;
   }
@@ -150,6 +153,9 @@ spanishTickets.addEventListener('input', function () {
 });
 
 spanishTickets2.addEventListener('input', function () {
+  if (!spanishTickets.value) {
+    spanishTickets.value = 0;
+  }
   if (spanishTickets2.value > numberOfTickets2) {
     spanishTickets2.value = numberOfTickets2;
   }
