@@ -21,6 +21,12 @@ let ticketsPriceSpanish2 = [2.3, 2.15];
 
 let radioSpain = false;
 let radioSpain2 = false;
+let sumSpanishTickets = 0;
+let sumSpanishTickets2 = 0;
+let sumTickets = 0;
+let sumTickets2 = 0;
+let difference = 0;
+let difference2 = 0;
 let currentPrice = 0;
 let currentPrice2 = 0;
 const resultDisplay = document.querySelector('#result');
@@ -29,6 +35,8 @@ const currencyPound = document.querySelector('#currency-pound');
 const currencyPound2 = document.querySelector('#currency-pound2');
 const currencyEuro = document.querySelector('#currency-euro');
 const currencyEuro2 = document.querySelector('#currency-euro2');
+const spanishTickets = document.querySelector('#spanish-tickets');
+const spanishTickets2 = document.querySelector('#spanish-tickets2');
 const tab1 = document.querySelector('#tab1');
 const tab2 = document.querySelector('#tab2');
 const radios = document.querySelectorAll("input[name='radio-calculator']");
@@ -119,6 +127,48 @@ checkboxs.forEach((checkbox) => {
     addOrRemoveAdditionalLanguage(e, 'Checkbox-calculator-Spanish');
     addOrRemoveAdditionalLanguage2(e, 'Checkbox-calculator-Spanish2');
   });
+});
+
+spanishTickets.addEventListener('input', function () {
+  if (!spanishTickets.value) {
+    spanishTickets.value = 0;
+  }
+  if (spanishTickets.value > numberOfTickets) {
+    spanishTickets.value = numberOfTickets;
+  }
+  if (spanishTickets.value < 1501) {
+    calculateSpanishPrice(ticketsPriceSpanish[0], ticketsPrice[0]);
+  } else if (spanishTickets.value < 5001) {
+    calculateSpanishPrice(ticketsPriceSpanish[1], ticketsPrice[1]);
+  } else if (spanishTickets.value < 10001) {
+    calculateSpanishPrice(ticketsPriceSpanish[2], ticketsPrice[2]);
+  } else if (spanishTickets.value > 10001) {
+    calculateSpanishPrice(ticketsPriceSpanish[3], ticketsPrice[3]);
+  }
+  difference = sumTickets - sumSpanishTickets;
+  difference = parseFloat(difference.toFixed(2));
+  let result = currentPrice - difference;
+  result = parseFloat(result.toFixed(2));
+  resultDisplay.textContent = result;
+});
+
+spanishTickets2.addEventListener('input', function () {
+  if (!spanishTickets.value) {
+    spanishTickets.value = 0;
+  }
+  if (spanishTickets2.value > numberOfTickets2) {
+    spanishTickets2.value = numberOfTickets2;
+  }
+  if (spanishTickets2.value < 10001) {
+    calculateSpanishPrice2(ticketsPriceSpanish2[0], ticketsPrice2[0]);
+  } else if (spanishTickets2.value > 10001) {
+    calculateSpanishPrice2(ticketsPriceSpanish2[1], ticketsPrice2[1]);
+  }
+  difference2 = sumTickets2 - sumSpanishTickets2;
+  difference2 = parseFloat(difference2.toFixed(2));
+  let result2 = currentPrice2 - difference2;
+  result2 = parseFloat(result2.toFixed(2));
+  resultDisplay2.textContent = result2;
 });
 
 function initCalculator() {
@@ -234,6 +284,16 @@ function addOrRemoveAdditionalLanguage(e, targetName) {
     nbAdditionalLangage = nbAdditionalLangage - 1;
     resultDisplay.textContent = currentPrice;
   }
+  if (e.target.checked && e.target.name === 'Checkbox-calculator-Spanish') {
+    spanishTickets.style.display = 'block';
+  } else if (
+    !e.target.checked &&
+    e.target.name === 'Checkbox-calculator-Spanish'
+  ) {
+    spanishTickets.style.display = 'none';
+    spanishTickets.value = '';
+    difference = 0;
+  }
 }
 
 function addOrRemoveAdditionalLanguage2(e, targetName) {
@@ -246,4 +306,28 @@ function addOrRemoveAdditionalLanguage2(e, targetName) {
     nbAdditionalLangage2 = nbAdditionalLangage2 - 1;
     resultDisplay2.textContent = currentPrice2;
   }
+  if (e.target.checked && e.target.name === 'Checkbox-calculator-Spanish2') {
+    spanishTickets2.style.display = 'block';
+  } else if (
+    !e.target.checked &&
+    e.target.name === 'Checkbox-calculator-Spanish2'
+  ) {
+    spanishTickets2.style.display = 'none';
+    spanishTickets2.value = '';
+    difference2 = 0;
+  }
+}
+
+function calculateSpanishPrice(ticketsPriceSpanish, ticketsPrice) {
+  sumSpanishTickets = spanishTickets.value * ticketsPriceSpanish;
+  sumSpanishTickets = parseFloat(sumSpanishTickets.toFixed(2));
+  sumTickets = spanishTickets.value * ticketsPrice;
+  sumTickets = parseFloat(sumTickets.toFixed(2));
+}
+
+function calculateSpanishPrice2(ticketsPriceSpanish2, ticketsPrice2) {
+  sumSpanishTickets2 = spanishTickets2.value * ticketsPriceSpanish2;
+  sumSpanishTickets2 = parseFloat(sumSpanishTickets2.toFixed(2));
+  sumTickets2 = spanishTickets2.value * ticketsPrice2;
+  sumTickets2 = parseFloat(sumTickets2.toFixed(2));
 }
