@@ -66,18 +66,18 @@ rangeInput2.addEventListener('input', function () {
 radios.forEach((radio) => {
   radio.addEventListener('click', function (e) {
     if (e.target.value === 'French') {
+      uncheckAllCheckboxs();
       calculate(ticketsPrice, nbAdditionalLangage);
       calculate2(ticketsPrice2, nbAdditionalLangage2);
-      uncheckAllCheckboxs();
-      setRadioSpain(false);
-      currencyDisplay('€');
       setPointerEventsCheckboxs(fieldCheckboxs[0], fieldCheckboxs[4]);
       toggleActiveClass(divRadios[0], divRadios[4]);
       setBackground(divCheckboxs[0], divCheckboxs[4]);
+      setRadioSpain(false);
+      currencyDisplay('€');
     } else if (e.target.value === 'English') {
+      uncheckAllCheckboxs();
       calculate(ticketsPrice, nbAdditionalLangage);
       calculate2(ticketsPrice2, nbAdditionalLangage2);
-      uncheckAllCheckboxs();
       setRadioSpain(false);
       currencyPound.textContent = '£';
       currencyEuro.textContent = '';
@@ -87,18 +87,18 @@ radios.forEach((radio) => {
       toggleActiveClass(divRadios[1], divRadios[5]);
       setBackground(divCheckboxs[1], divCheckboxs[5]);
     } else if (e.target.value === 'German') {
+      uncheckAllCheckboxs();
       calculate(ticketsPrice, nbAdditionalLangage);
       calculate2(ticketsPrice2, nbAdditionalLangage2);
-      uncheckAllCheckboxs();
       setRadioSpain(false);
       currencyDisplay('€');
       setPointerEventsCheckboxs(fieldCheckboxs[2], fieldCheckboxs[6]);
       toggleActiveClass(divRadios[2], divRadios[6]);
       setBackground(divCheckboxs[2], divCheckboxs[6]);
     } else if (e.target.value === 'Spanish') {
+      uncheckAllCheckboxs();
       calculate(ticketsPriceSpanish, nbAdditionalLangage);
       calculate2(ticketsPriceSpanish2, nbAdditionalLangage2);
-      uncheckAllCheckboxs();
       setRadioSpain(true);
       currencyDisplay('€');
       setPointerEventsCheckboxs(fieldCheckboxs[3], fieldCheckboxs[7]);
@@ -164,13 +164,14 @@ function calculate(ticketsPricing, nbAdditionalLangage) {
 }
 
 function calculate2(ticketsPricing, nbAdditionalLangage) {
+
   if (numberOfTickets2 > 5000) {
     currentPrice2 =
       souscription +
       numberOfTickets2 * ticketsPricing[0] +
       souscriptionAdditional * nbAdditionalLangage;
     currentPrice2 = parseFloat(currentPrice2.toFixed(2));
-  } else if (numberOfTickets2 > 10001) {
+  } if (numberOfTickets2 > 10000) {
     currentPrice2 =
       souscription +
       numberOfTickets2 * ticketsPricing[1] +
@@ -183,7 +184,7 @@ function calculate2(ticketsPricing, nbAdditionalLangage) {
 function uncheckAllCheckboxs() {
   for (let i = 0; i < checkboxs.length; i++) {
     if (checkboxs[i].checked) {
-      fieldCheckboxs[i].click();
+      checkboxs[i].click();
     }
   }
 }
